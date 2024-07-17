@@ -1,7 +1,8 @@
 import { useGSAP } from "@gsap/react";
+import clsx from "clsx";
 import gsap from "gsap";
 import { useEffect, useRef } from "react";
-import "./ImageTrail.scss";
+import style from "./ImageTrail.module.scss";
 
 type Props = {};
 
@@ -58,11 +59,11 @@ const ImageTrail = (props: Props) => {
   const animateImages = () => {};
 
   return (
-    <main className="app" ref={container}>
-      <section className="hero">
-        <div className="hero-wrapper">
+    <main className={clsx(style.app)} ref={container}>
+      <section className={clsx(style.hero, "hero")}>
+        <div className={clsx(style["hero-wrapper"], "hero-wrapper")}>
           <div className="hero-gallery"></div>
-          <div className="hero-title">
+          <div className={clsx(style["hero-title"], "hero-title")}>
             <div className="ofh">
               <h1>T</h1>
             </div>

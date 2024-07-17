@@ -1,7 +1,7 @@
 
-*,
-*::before,
-*::after {
+.app,
+.app::before,
+.app::after {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -12,15 +12,11 @@
     --secondary: #1b1b1b
 }
 
-html {
+.app {
     font-size: max(100vw / 1920 * 10);
-}
-
-body {
     background-color: var(--primary);
     color: var(--secondary)
 }
-
 /* hero */
 
 .hero {
@@ -28,6 +24,7 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
+    background-color: #d0afab;
 }
 
 .hero-wrapper {
@@ -61,7 +58,7 @@ body {
 }
 
 .hero-title h1 {
-    font-size: 40rem;
+    font-size: calc(max(100vw / 1920 * 10)) * 40;
     text-align: center;
 }
 
