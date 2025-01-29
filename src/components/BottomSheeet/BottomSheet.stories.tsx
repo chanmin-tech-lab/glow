@@ -1,9 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
-import {
-  default as BottomSheet,
-  default as BottomSheetDemo,
-} from "./BottomSheet";
+import { default as BottomSheet } from "./BottomSheet";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -31,13 +28,63 @@ export const Primary: Story = {
   },
   render: () => {
     const [isOpen, setIsOpen] = useState(false);
+    const handleClose = () => {
+      setIsOpen(() => false);
+    };
     return (
       <div>
-        <button onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? "Close BottomSheet" : "Open BottomSheet"}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          style={{
+            position: "absolute",
+            fontWeight: 700,
+            top: 20,
+            right: 20,
+            zIndex: 10000,
+            cursor: "pointer",
+            backgroundColor: "#c0c0c06e",
+            borderRadius: 12,
+            padding: 12,
+          }}
+        >
+          {isOpen ? "바텀싯 닫기" : "바텀싯 열기"}
         </button>
-        <BottomSheetDemo open={isOpen} />
+        <BottomSheet open={isOpen} handleClose={handleClose}>
+          <ul>
+            {MOCK_OPTIONS_DATA.map((data, index) => (
+              <li
+                key={data.value + index}
+                style={{ padding: "12px 0", fontWeight: 600, color: "#111" }}
+              >
+                {data.label}
+              </li>
+            ))}
+          </ul>
+        </BottomSheet>
       </div>
     );
   },
 };
+
+const MOCK_OPTIONS_DATA = [
+  {
+    label: "오사카",
+    value: "오사카",
+  },
+  {
+    label: "도쿄",
+    value: "도쿄",
+  },
+  {
+    label: "후쿠오카",
+    value: "후쿠오카",
+  },
+  {
+    label: "뉴욕",
+    value: "뉴욕",
+  },
+  {
+    label: "워싱턴",
+    value: "워싱턴",
+  },
+];
