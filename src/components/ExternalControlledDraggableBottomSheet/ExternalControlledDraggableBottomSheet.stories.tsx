@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
-import { default as DraggableBottomSheet } from "./DraggableBottomSheet";
+import { default as ExternalControlledDraggableBottomSheet } from "./ExternalControlledDraggableBottomSheet";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: "Components/DraggableBottomSheet",
-  component: DraggableBottomSheet,
+  title: "Components/ExternalControlledDraggableBottomSheet",
+  component: ExternalControlledDraggableBottomSheet,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     layout: "centered",
@@ -16,7 +16,7 @@ const meta = {
   argTypes: {},
   // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
   args: {},
-} satisfies Meta<typeof DraggableBottomSheet>;
+} satisfies Meta<typeof ExternalControlledDraggableBottomSheet>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -24,18 +24,31 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Primary: Story = {
   args: {
-    label: "DraggableBottomSheet",
+    label: "ExternalControlledDraggableBottomSheet",
   },
   render: () => {
+    const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState<string>();
+
+    const handleSelect = (value: string) => {
+      setSelectedOption(value);
+      setIsOpen(() => false);
+    };
+
+    const handleBottomSheetOpen = (value: boolean) => {
+      setIsOpen(() => value);
+    };
     return (
       <div>
         <div>선택한 옵션 : {selectedOption}</div>
-        <DraggableBottomSheet>
+        <ExternalControlledDraggableBottomSheet
+          isOpen={isOpen}
+          handleOpen={handleBottomSheetOpen}
+        >
           <ul>
             {MOCK_OPTIONS_DATA.map((data, index) => (
               <li
-                onClick={() => setSelectedOption(data.value)}
+                onClick={() => handleSelect(data.value)}
                 key={data.value + index}
                 style={{ padding: "12px 0", fontWeight: 600, color: "#111" }}
               >
@@ -43,7 +56,7 @@ export const Primary: Story = {
               </li>
             ))}
           </ul>
-        </DraggableBottomSheet>
+        </ExternalControlledDraggableBottomSheet>
       </div>
     );
   },
