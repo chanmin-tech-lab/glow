@@ -51,7 +51,7 @@ export const Body = styled(motion.div)``;
 
 // 위로 계속 드래그 시 노출되는 그림자 숨기기 위한 용도 2
 export const DraggedBackground = styled.div`
-  height: 100px;
+  height: 40px;
   width: 100%;
   background-color: #fff;
   position: fixed;

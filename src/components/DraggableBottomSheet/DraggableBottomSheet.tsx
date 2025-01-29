@@ -12,7 +12,11 @@ type BottomSheetProps = {
 
 const DraggableBottomSheet = ({ children }: BottomSheetProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [initialPosition, setInitialPosition] = useState(0);
+  const [initialPosition, setInitialPosition] = useState<number>(
+    // 값이 0 -> containerHeight - headerHeight 으로 상승하는 과정에서 초기 애니메이션이 이상해진다.
+    // 초기 애니메이션을 수정하기 위해 window.innerHeight -> containerHeight - headerHeight 처럼 구현한다.
+    window.innerHeight
+  );
   const ContainerRef = useRef<HTMLDivElement | null>(null);
   const HeaderRef = useRef<HTMLDivElement | null>(null);
   const BodyRef = useRef<HTMLDivElement | null>(null);
@@ -21,7 +25,7 @@ const DraggableBottomSheet = ({ children }: BottomSheetProps) => {
     if (ContainerRef.current && HeaderRef.current) {
       const containerHeight = ContainerRef.current.clientHeight;
       const headerHeight = HeaderRef.current.clientHeight;
-      setInitialPosition(containerHeight - headerHeight);
+      setInitialPosition(() => containerHeight - headerHeight);
     }
   }, []);
 
