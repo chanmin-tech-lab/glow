@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { useState } from "react";
-import { default as BottomSheet } from "./BottomSheet";
+import { default as DraggableBottomSheet } from "./DraggableBottomSheet";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: "Components/BottomSheet",
-  component: BottomSheet,
+  title: "Components/DraggableBottomSheet",
+  component: DraggableBottomSheet,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     layout: "centered",
@@ -16,7 +15,7 @@ const meta = {
   argTypes: {},
   // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
   args: {},
-} satisfies Meta<typeof BottomSheet>;
+} satisfies Meta<typeof DraggableBottomSheet>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -24,32 +23,12 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Primary: Story = {
   args: {
-    label: "BottomSheet",
+    label: "DraggableBottomSheet",
   },
   render: () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const handleClose = () => {
-      setIsOpen(() => false);
-    };
     return (
       <div>
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          style={{
-            position: "absolute",
-            fontWeight: 700,
-            top: 20,
-            right: 20,
-            zIndex: 10000,
-            cursor: "pointer",
-            backgroundColor: "#c0c0c06e",
-            borderRadius: 12,
-            padding: 12,
-          }}
-        >
-          {isOpen ? "바텀싯 닫기" : "바텀싯 열기"}
-        </button>
-        <BottomSheet open={isOpen} handleClose={handleClose}>
+        <DraggableBottomSheet>
           <ul>
             {MOCK_OPTIONS_DATA.map((data, index) => (
               <li
@@ -60,7 +39,7 @@ export const Primary: Story = {
               </li>
             ))}
           </ul>
-        </BottomSheet>
+        </DraggableBottomSheet>
       </div>
     );
   },
